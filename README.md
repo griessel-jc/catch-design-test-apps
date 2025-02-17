@@ -9,6 +9,7 @@ A frontend web app that fetching data from the API and displays it in a table
 - **MySQL**: Version **9** or **Docker compose** to host a MySQL container.
 - **Yarn** or **npm**, personal preference for frontend app.
 - **Docker Desktop** with **Docker compose** for MySQL and managing MySQL container
+- **Composer** 
 
 ## Getting Started
 
@@ -27,7 +28,7 @@ cp .env.example .env
 DB_HOST=127.0.0.1
 DB_PORT=3307
 DB_DATABASE=laravel
-DB_USERNAME=root
+DB_USERNAME=catchUser
 DB_PASSWORD=secret
 DB_ROOT_PASSWORD=secret
 ```
@@ -52,7 +53,13 @@ php artisan migrate
 php artisan db:seed CustomerSeeder
 ```
 
-Install frontend web app dependancies, copy over environment variable and start dev.
+Start backend API server, it will be available at http://localhost:8000/api by default
+
+```bash
+php artisan serve
+```
+
+Open a seperate terminal, install frontend web app dependancies, copy over environment variable and start dev, it will be available at http://localhost:3000 by default
 
 ```bash
 cd ../catchdesign-web-app
