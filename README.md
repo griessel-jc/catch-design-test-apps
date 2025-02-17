@@ -6,10 +6,24 @@ A frontend web app that fetching data from the API and displays it in a table
 
 ## Getting Started
 
-First, clone the respository:
+First, clone the respository and install dependencies:
 
 ```bash
-clone 
+clone https://github.com/griessel-jc/catch-design-test-apps
+cd catch-design-test-apps
+```
+
+Setup MySQL docker container, it will map the port to 3307 by default to avoid conflict with local SQL.
+
+```bash
+cd catchdesign-api
+docker compose -f compose.dev.yml up -d
+```
+
+Install dependancies for Laravel and host server
+```bash
+composer install
+php artisan serve
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

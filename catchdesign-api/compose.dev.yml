@@ -1,0 +1,14 @@
+services:
+  mysql:
+      image: mysql
+      ports:
+        - "${DB_PORT:-3307}:3306"
+      environment:
+        - MYSQL_DATABASE=${DB_DATABASE:-app}
+        - MYSQL_USER=${DB_USERNAME:-laravel}
+        - MYSQL_PASSWORD=${DB_PASSWORD:-secret}
+        - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD:-secret}
+      volumes:
+        - mysql-data-development:/var/lib/mysql
+volumes:
+  mysql-data-development:
