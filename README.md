@@ -4,6 +4,12 @@ A backend server with an API for customers run in Laravel 11
 
 A frontend web app that fetching data from the API and displays it in a table
 
+## Requirements
+- **PHP**: Version **8** is used for optimal performance in both development and production environments.
+- **MySQL**: Version **9** or **Docker compose** to host a MySQL container.
+- **Yarn** or **npm**, personal preference for frontend app.
+- **Docker Desktop** with **Docker compose** for MySQL and managing MySQL container
+
 ## Getting Started
 
 First, clone the respository and install dependencies:
@@ -13,36 +19,47 @@ clone https://github.com/griessel-jc/catch-design-test-apps
 cd catch-design-test-apps
 ```
 
-Setup MySQL docker container, it will map the port to 3307 by default to avoid conflict with local SQL.
-
+Copy over env variables and change the Database variables accordingly
 ```bash
 cd catchdesign-api
+cp .env.example .env
+
+DB_HOST=127.0.0.1
+DB_PORT=3307
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=secret
+DB_ROOT_PASSWORD=secret
+```
+
+Setup MySQL docker container, it will map the port to 3307 by default to avoid conflict with local MySQL.
+
+```bash
 docker compose -f compose.dev.yml up -d
 ```
 
-Install dependancies for Laravel and host server
+Install dependancies for Laravel and initiate app key.
+
 ```bash
 composer install
-php artisan serve
+php artisan key:generate
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Initiate migrations and seed database with customer.csv
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+php artisan migrate
+php artisan db:seed CustomerSeeder
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Install frontend web app dependancies, copy over environment variable and start dev.
 
-## Learn More
+```bash
+cd ../catchdesign-web-app
+cp .env.next-example .env
+yarn install
+yarn dev
+```
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## API
+Ideally setup a repository interface but for demonstration purpose this is a basic API that allows web or mobile to access data.
